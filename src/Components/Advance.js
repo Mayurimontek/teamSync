@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash,faPlus } from '@fortawesome/free-solid-svg-icons';
 const Advance = () => {
     const [advanceObj, setadvanceObj] = useState({
-        "advanceId": 0,
-        "employeeId": 0,
-        "advanceDate": "",
-        "advanceAmount": 0,
-        "reason": ""
+        advanceId: 0,
+        employeeId: 0,
+        advanceDate: "",
+        advanceAmount: 0,
+        reason: ""
     });
     const{employeelistData, getAllEmployee} =useContext(Appcontext);
     const[advanceList,setadvanceList]=useState([]);
@@ -52,7 +52,6 @@ const Advance = () => {
     else{
         alert('Something went wrong');
     }
-   
    }
    const handleChange =(event,key)=>{
     setadvanceObj((prevObj)=>({...prevObj,[key]:event.target.value}));
