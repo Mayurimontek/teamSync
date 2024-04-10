@@ -62,6 +62,7 @@ const Attendance = () => {
             console.error('Error occurred while saving attendance:', error);
         }
         setShow(false);
+        
     }
     else{
         alert('Something went wrong');
@@ -89,10 +90,10 @@ const Attendance = () => {
     }
     const editAttendance = (attendance) => {
         const inTime = attendance.inTime.split('T')[1].split(':').slice(0, 2).join(':');
-    const outTime = attendance.outTime.split('T')[1].split(':').slice(0, 2).join(':');
+       const outTime = attendance.outTime.split('T')[1].split(':').slice(0, 2).join(':');
         const formattedDate = attendance.attendanceDate.split('T');
-    const mydate = formattedDate[0];
-    setAttendanceObj({
+        const mydate = formattedDate[0];
+        setAttendanceObj({
         ...attendance,
         attendanceDate: mydate,
         inTime,

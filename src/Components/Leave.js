@@ -53,6 +53,7 @@ const Leave = () => {
             "noOfHalfDayLeaves": 0
         });
         setShow(false);
+        getLeaveList();
     }
     const editLeave =(leave)=>{
         const formattedDate = leave.leaveDate.split('T')[0];
