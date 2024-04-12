@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import{Appcontext} from '../App'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash,faPlus } from '@fortawesome/free-solid-svg-icons';
+import DynamicTable from '../DynamicTable';
 const Advance = () => {
     const [advanceObj, setadvanceObj] = useState({
         advanceId: 0,
@@ -12,6 +13,7 @@ const Advance = () => {
         advanceAmount: 0,
         reason: ""
     });
+    const headers = ['Id','Employee', 'Advance Date', 'Advance Amount', 'Reason'];
     const{employeelistData, getAllEmployee} =useContext(Appcontext);
     const[advanceList,setadvanceList]=useState([]);
     const [show, setShow] = useState(false);
@@ -57,15 +59,26 @@ const Advance = () => {
     setadvanceObj((prevObj)=>({...prevObj,[key]:event.target.value}));
    }
    const editAdvance = (advance) => {
+    debugger
     const formattedDate = advance.advanceDate.split('T');
     const mydate = formattedDate[0];
+    const advanceData=advance.find(advance=>advance.advanceId == advance.Id);
     setadvanceObj({
         ...advance,
+        advanceData,
         advanceDate: mydate
     });
     setShow(true);
 }
-
+const filteredData = advanceList.map(advance=>{
+    return{
+       'Id':advance.advanceId,
+       'Employee':advance.empName,
+        'Advance Date':advance.advanceDate,
+        'Advance Amount':advance.advanceAmount,
+        'Reason':advance.reason
+    }
+})
    const updateAdvance =async()=>{
     debugger
     const result = await axios.post(`${url}UpdateAdvance`,advanceObj);
@@ -101,16 +114,15 @@ const Advance = () => {
                 <div className='col-md-1'></div>
                 <div className='col-md-9'>
                     <div className='card'>
-                        <div className='card-header bg-info'>
+                        <div className='card-header bg-secondary'>
                             <h5>Advance List</h5>
                             <div className='text-end'>
                             <Button variant="warning" onClick={handleShow}><FontAwesomeIcon icon={faPlus} />Add New</Button>
-
                                 </div>
                         </div>
                         
                         <div className='card-body'>
-                            <table className='table table-bordered'>
+                            {/* <table className='table table-bordered'>
                                 <thead>
                                     <tr>
                                         <th>Sr.No</th>
@@ -144,7 +156,9 @@ const Advance = () => {
                                     })
                                 }
                                 </tbody>
-                            </table>
+                            </table> */}
+                <DynamicTable headers={headers}  data={filteredData} onEdit={editAdvance} onDelete={deleteAdvance}></DynamicTable>
+
                         </div>
                     </div>
 
@@ -153,7 +167,7 @@ const Advance = () => {
             </div>
             <div className='col-md-12'>
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton className='bg-info'>
+                    <Modal.Header closeButton className='bg-secondary'>
                         <Modal.Title>Advance</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

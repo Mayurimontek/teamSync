@@ -5,6 +5,7 @@ import{Appcontext} from '../App'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash,faPlus } from '@fortawesome/free-solid-svg-icons';
 import '../Components/main.css';
+import DynamicTable from '../DynamicTable';
 const Leave = () => {
     const [leaveObj, setleaveObj] = useState({
         "leaveId": 0,
@@ -14,6 +15,7 @@ const Leave = () => {
         "noOfFullDayLeaves": 0,
         "noOfHalfDayLeaves": 0
     });
+    const headers = ['Employee', 'Leave Date', 'Leave Reason', 'No of full days', 'No of half days'];
     const{employeelistData, getAllEmployee} =useContext(Appcontext);
     const[leaveList,setleaveList]=useState([]);
     const [show, setShow] = useState(false);
@@ -101,7 +103,7 @@ const Leave = () => {
                 <div className='col-md-1'></div>
                 <div className='col-md-10'>
                     <div className='card'>
-                        <div className='card-header bg-info'>
+                        <div className='card-header bg-secondary'>
                             <div className='row'>
                                 <div className='col-md-12'>
                                     <h5>Leave List</h5>
@@ -112,7 +114,7 @@ const Leave = () => {
 
                             </div>
                         </div>
-                        <div className='card-body'>
+                        {/* <div className='card-body'>
                             <table className='table table-bordered'>
                                 <thead>
                                     <tr>
@@ -149,15 +151,16 @@ const Leave = () => {
                                     }
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                        </div> */}
+                <DynamicTable headers={headers}  data={leaveList} onEdit={editLeave} onDelete={deleteleave}></DynamicTable>
 
+                    </div>
                 </div>
 
             </div>
             <div className='col-md-12'>
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton className='bg-info'>
+                    <Modal.Header closeButton className='bg-secondary'>
                         <Modal.Title>Leave</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

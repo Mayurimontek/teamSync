@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import{Appcontext} from '../App'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash,faPlus} from '@fortawesome/free-solid-svg-icons';
-
+import DynamicTable from '../DynamicTable';
 const Salary = () => {
     const[salaryObj,setsalaryObj]=useState({
         "salaryId": 0,
@@ -14,6 +14,8 @@ const Salary = () => {
         "presentDays": '',
         "salaryAmount": '',
     });
+   
+    const headers = ['Id','Employee', 'Salary Date', 'Total Advance', 'Present days', 'Total Amount'];
     const { employeelistData, getAllEmployee } = useContext(Appcontext);
     const [show, setShow] = useState(false);
     const url = "https://onlinetestapi.gerasim.in/api/TeamSync/";
@@ -87,15 +89,28 @@ const Salary = () => {
         setsalaryObj((prevObj) => ({ ...prevObj, [key]: event.target.value }));
     };
     const editSalary =(salary)=>{
+        debugger
         const myDate = salary.salaryDate.split('T')[0];
+        const salaryData = salaryList.find(salary=> salary.salaryId == salary.Id);
         setShow(true);
         setsalaryObj({
             ...salary,
+            salaryData,
             salaryDate:myDate
         }
            
         );
     }
+    const filteredData =salaryList.map(salary=>{
+        return{
+            'Id':salary.salaryId,
+            'Employee':salary.empName,
+            'Salary Date':salary.salaryDate,
+            'Total Advance':salary.totalAdvance,
+            'Present days':salary.presentDays,
+            'Total Amount':salary.salaryAmount
+        }
+    });
     const deleteSalary=async(salaryId)=>{
         debugger
         const result = await axios.get(`${url}DeleteSalaryById?salaryId=`+salaryId);
@@ -111,62 +126,27 @@ const Salary = () => {
     return (
         <div>
             <div className='row mt-3'>
-                <div className='col-md-1'></div>
+                 <div className='col-md-1'></div>
                 <div className='col-md-9'>
                     <div className='card'>
-                        <div className='card-header bg-info'>
+                        <div className='card-header bg-secondary'>
                             <h5>Salary List</h5>
                             <div className='text-end'>
                             <Button variant="warning" onClick={handleShow}><FontAwesomeIcon icon={faPlus} />Add New</Button>
 
                                 </div>
                         </div>
-                        <div className='card-body'>
-                            <table className='table table-bordered'>
-                                <thead>
-                                    <tr>
-                                        <th>Sr.No</th>
-                                        <th>Employee</th>
-                                        <th>Salary Date</th>
-                                        <th>Total Advance</th>
-                                        <th>Present Days</th>
-                                        <th>Salary Amount</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                        salaryList.map((salary, index) => {
-                                            return (
-                                                <tr>
-                                                    <td>{index + 1}</td>
-                                                    <td>{salary.empName}</td>
-                                                    <td>{salary.salaryDate.split('T')[0]}</td>
-                                                    <td>{salary.totalAdvance}</td>
-                                                    <td>{salary.presentDays}</td>
-                                                    <td>{salary.salaryAmount}</td>
-                                                    <td><button className='btn btn-sm btn-success m-2' onClick={() => editSalary(salary)}>
-                                                    <FontAwesomeIcon icon={faEdit} />
-                                                    </button>
-                                                        <button className='btn btn-sm btn-danger' onClick={() => deleteSalary(salary.salaryId)}>
-                                                        <FontAwesomeIcon icon={faTrash} />
-                                                            </button></td>
+                       
+                <DynamicTable headers={headers}  data={filteredData} onEdit={editSalary} onDelete={deleteSalary}></DynamicTable>
 
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
 
-                </div>
+                </div> 
                 
             </div> 
             <div className='col-md-12'>
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton className='bg-info'>
+                    <Modal.Header closeButton className='bg-secondary'>
                         <Modal.Title>Salary</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

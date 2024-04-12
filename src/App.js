@@ -9,6 +9,7 @@ import Dashboard from './Components/Dashboard'
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Leave from './Components/Leave';
+import EditEmployee from './Components/EditEmployee';
 const Appcontext = createContext();
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                     <li className="nav-item">
                       <NavLink className='nav-link' activeClassName='active' to="/Leave">Leave</NavLink>
                     </li>
+                    
 
                   </ul>
 
@@ -65,11 +67,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard></Dashboard>}></Route>
               <Route path="/Employee" element={<Employee></Employee>}></Route>
+              <Route path="/EditEmployee/:id" element={<EditEmployee></EditEmployee>}></Route>
               <Route path="/Advance" element={<Advance></Advance>}></Route>
               <Route path='/Attendance' element={<Attendance></Attendance>}></Route>
               <Route path='/Salary' element={<Salary></Salary>}></Route>
               <Route path='/Dashboard' element={<Dashboard></Dashboard>}></Route>
               <Route path="/Leave" element={<Leave></Leave>}></Route>
+              
             </Routes>
 
           </div>
