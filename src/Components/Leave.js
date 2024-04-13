@@ -103,7 +103,7 @@ const Leave = () => {
                 <div className='col-md-1'></div>
                 <div className='col-md-10'>
                     <div className='card'>
-                        <div className='card-header bg-secondary'>
+                        <div className='card-header bg-info custom-card-header'>
                             <div className='row'>
                                 <div className='col-md-12'>
                                     <h5>Leave List</h5>
@@ -160,7 +160,7 @@ const Leave = () => {
             </div>
             <div className='col-md-12'>
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton className='bg-secondary'>
+                    <Modal.Header closeButton className='bg-info custom-card-header'>
                         <Modal.Title>Leave</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

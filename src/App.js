@@ -10,6 +10,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Leave from './Components/Leave';
 import EditEmployee from './Components/EditEmployee';
+import AddEmployee from './Components/AddEmployee';
 const Appcontext = createContext();
 
 function App() {
@@ -73,7 +74,7 @@ function App() {
               <Route path='/Salary' element={<Salary></Salary>}></Route>
               <Route path='/Dashboard' element={<Dashboard></Dashboard>}></Route>
               <Route path="/Leave" element={<Leave></Leave>}></Route>
-              
+              <Route path="/AddEmployee" element={<AddEmployee/>}></Route>
             </Routes>
 
           </div>

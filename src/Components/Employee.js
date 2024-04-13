@@ -9,7 +9,7 @@ import { post, put, get, deletedata } from '../ApiService';
 import DynamicTable from '../DynamicTable';
 import { AgGridReact } from 'ag-grid-react';
 import{useNavigate} from 'react-router-dom';
-
+import '../main.css'
 
 const Employee = ({ children }) => {
     const [show, setShow] = useState(false);
@@ -130,8 +130,6 @@ const Employee = ({ children }) => {
             employeeObj.salary !== ''
         );
     };
-
-  
     const deleteEmp = async (employee) => {
         debugger
         deletedata(employee.Id, 'DeleteEmployeeByEmpId?empid=').then(result => {
@@ -146,25 +144,24 @@ const Employee = ({ children }) => {
         })
 
     }
-
+const addNewEmployee =()=>{
+    navigate('/AddEmployee');
+}
     return (
         <div className='container-fluid'>
             <div className='row mt-3'>
                 <div className='col-md-12'>
                     <div className='card'>
-                        <div className='card-header bg-secondary'>
-                            <div className='row'>
-                                <div className='col-md-12'>
-                                    <div>
-                                        <h5>Employee List</h5>
-                                    </div>
-                                    <div className='text-end'>
-                                        <Button variant="warning" onClick={handleShow}><FontAwesomeIcon icon={faPlus} />Add New</Button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div className='card-header bg-info custom-card-header'>
+        <div className='row align-items-center'> {/* Add align-items-center to vertically center the content */}
+            <div className='col'>
+                <h5 className='mb-0'>Employee List</h5> {/* Add mb-0 to remove margin-bottom */}
+            </div>
+            <div className='col-auto'>
+                <Button variant="warning" onClick={addNewEmployee}><FontAwesomeIcon icon={faPlus} /> Add New</Button> {/* Add col-auto to make it inline */}
+            </div>
+        </div>
+    </div>
                         <div className="ag-theme-quartz" style={{ height: 550 }}>
                             <AgGridReact
                                 rowData={filteredData}

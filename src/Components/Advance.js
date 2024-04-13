@@ -114,7 +114,7 @@ const filteredData = advanceList.map(advance=>{
                 <div className='col-md-1'></div>
                 <div className='col-md-9'>
                     <div className='card'>
-                        <div className='card-header bg-secondary'>
+                        <div className='card-header bg-info custom-card-header'>
                             <h5>Advance List</h5>
                             <div className='text-end'>
                             <Button variant="warning" onClick={handleShow}><FontAwesomeIcon icon={faPlus} />Add New</Button>
@@ -167,7 +167,7 @@ const filteredData = advanceList.map(advance=>{
             </div>
             <div className='col-md-12'>
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton className='bg-secondary'>
+                    <Modal.Header closeButton className='bg-info custom-card-header'>
                         <Modal.Title>Advance</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

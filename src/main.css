@@ -1,0 +1,6 @@
+.custom-card-header {
+    height: 50px; /* You can adjust this value as per your requirement */
+}
+.card-header .row {
+    padding: 0 15px;
+}
