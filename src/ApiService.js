@@ -15,6 +15,7 @@ const url ="https://onlinetestapi.gerasim.in/api/TeamSync/";
         }
     }
    const post =async(obj,endpoint)=>{
+    debugger
         try {
             const response = await axios.post(url + endpoint,obj);
             return response.data;
